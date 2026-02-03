@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Minihra: Těžba Termínů — Persistovaná verze</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Minihra: Těžba Termínů</h1>
+    <p class="tagline">Uč se pojmy (GitHub, Blender...) a těž suroviny — vše se ukládá.</p>
+    <div class="header-controls">
+      <select id="categorySelect" title="Kategorie karet">
+        <option value="github">GitHub</option>
+        <option value="blender">Blender (zkratky)</option>
+      </select>
+      <button id="openShop">Obchod</button>
+      <button id="openGlossary">Slovník</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hud">
+      <div class="stat">
+        <strong>Stupně těžení</strong>
+        <div id="stupne">0</div>
+      </div>
+      <div class="stat">
+        <strong>Kapacita</strong>
+        <div id="kapacita">4 / 4</div>
+      </div>
+      <div class="stat">
+        <strong>Dovednost</strong>
+        <div id="dovednost">0</div>
+      </div>
+      <div class="stat">
+        <strong>Vrstva dolu</strong>
+        <div id="layer">1</div>
+      </div>
+    </section>
+
+    <section class="controls">
+      <label for="difficulty">Obtížnost:</label>
+      <select id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="normal" selected>Normal</option>
+        <option value="hard">Hard</option>
+      </select>
+      <button id="interact">Interagovat (těžit)</button>
+      <button id="resetCapacity">Reset kapacity</button>
+    </section>
+
+    <section class="resources">
+      <h2>Suroviny</h2>
+      <div class="resource-grid">
+        <div class="resource-card">
+          <div class="res-name">Kámen Githubu</div>
+          <div class="res-amount" id="stone">0</div>
+        </div>
+        <div class="resource-card">
+          <div class="res-name">Dřevo Githubu</div>
+          <div class="res-amount" id="wood">0</div>
+        </div>
+        <div class="resource-card">
+          <div class="res-name">Kámen Blender</div>
+          <div class="res-amount" id="stone_blender">0</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="instructions">
+      <h2>Pravidla (stručně)</h2>
+      <ul>
+        <li>Při interakci se zobrazí karta: název, stručná definice, otázka Ano/Ne.</li>
+        <li>Bez času — odpověz pečlivě. Správná odpověď dá stupně a suroviny; špatná sníží kapacitu o 1.</li>
+        <li>Stav se ukládá automaticky (localStorage). Shop umožní koupit upgrady za suroviny.</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Card Modal -->
+  <div id="cardModal" class="modal hidden" role="dialog" aria-hidden="true">
+    <div class="card">
+      <button class="close" id="closeCard">&times;</button>
+      <h3 id="termTitle">TERMÍN</h3>
+      <p id="termDefinition">Definice...</p>
+      <div id="exampleBlock" class="example-block hidden">
+        <h4>Příklad</h4>
+        <p id="termExample"></p>
+      </div>
+      <div class="question">
+        <p id="termQuestion">Je to pravda?</p>
+      </div>
+      <div class="answer-row">
+        <button id="btnYes" class="answer-btn">Ano</button>
+        <button id="btnNo" class="answer-btn">Ne</button>
+        <button id="btnExplain" class="answer-btn secondary">Rozšířené</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shop Modal -->
+  <div id="shopModal" class="modal hidden" role="dialog" aria-hidden="true">
+    <div class="card large">
+      <button class="close" id="closeShop">&times;</button>
+      <h3>Obchod</h3>
+      <div id="shopList" class="shop-list"></div>
+    </div>
+  </div>
+
+  <!-- Glossary Modal -->
+  <div id="glossaryModal" class="modal hidden" role="dialog" aria-hidden="true">
+    <div class="card large">
+      <button class="close" id="closeGlossary">&times;</button>
+      <h3>Slovník</h3>
+      <div id="glossaryList" class="glossary-list"></div>
+    </div>
+  </div>
+
+  <!-- small confetti container -->
+  <div id="confettiContainer" class="confetti-container"></div>
+
+  <footer>
+    <small>Persistentní demo — přidávej další termíny, upgrady a kategorie podle potřeby.</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
